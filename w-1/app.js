@@ -38,13 +38,30 @@ app.get('/add-students', async (req, res) => {
 app.get('/display-all', async (req, res) => {
     const students = await Student.find();
     const count = await Student.countDocuments();
-    res.json({ count, students });
+    let html = `<h1>Total Count: ${count}</h1>`;
+    html += `<table border="1" style="margin: 0 auto; border-collapse: collapse; text-align: center;">
+        <tr>
+            <th>Name</th><th>Roll No</th><th>WAD</th><th>DSBDA</th><th>CNS</th><th>CC</th><th>AI</th>
+        </tr>`;
+    students.forEach(s => {
+        html += `<tr>
+            <td>${s.Name}</td><td>${s.Roll_No}</td><td>${s.WAD_Marks}</td>
+            <td>${s.DSBDA_Marks}</td><td>${s.CNS_Marks}</td><td>${s.CC_Marks}</td><td>${s.AI_marks}</td>
+        </tr>`;
+    });
+    html += `</table>`;
+    res.send(html);
 });
 
 // e) List names of students who got > 20 in DSBDA
 app.get('/dsbda-above-20', async (req, res) => {
     const students = await Student.find({ DSBDA_Marks: { $gt: 20 } }, { Name: 1, _id: 0 });
-    res.json(students);
+    let html = `<ul>`;
+    students.forEach(s => {
+        html += `<li>${s.Name}</li>`;
+    });
+    html += `</ul>`;
+    res.send(html);
 });
 
 // f) Update marks of specified student by 10 (e.g., Roll 111)
@@ -65,7 +82,12 @@ app.get('/above-25-all', async (req, res) => {
         CNS_Marks: { $gt: 25 },
         AI_marks: { $gt: 25 }
     }, { Name: 1, _id: 0 });
-    res.json(students);
+    let html = `<ul>`;
+    students.forEach(s => {
+        html += `<li>${s.Name}</li>`;
+    });
+    html += `</ul>`;
+    res.send(html);
 });
 
 // h) Less than 40 in both WAD and CC (Using WAD/CC as placeholders for Maths/Science as per fields)
@@ -74,7 +96,12 @@ app.get('/below-40-specific', async (req, res) => {
         WAD_Marks: { $lt: 40 },
         CC_Marks: { $lt: 40 }
     }, { Name: 1, _id: 0 });
-    res.json(students);
+    let html = `<ul>`;
+    students.forEach(s => {
+        html += `<li>${s.Name}</li>`;
+    });
+    html += `</ul>`;
+    res.send(html);
 });
 
 // i) Remove specified student
@@ -87,7 +114,7 @@ app.get('/remove/:name', async (req, res) => {
 app.get('/table', async (req, res) => {
     const students = await Student.find();
     let html = `
-    <table border="1" style="border-collapse: collapse; text-align: center;">
+    <table border="1" style="margin: 0 auto; border-collapse: collapse; text-align: center;">
         <tr>
             <th>Name</th><th>Roll No</th><th>WAD</th><th>DSBDA</th><th>CNS</th><th>CC</th><th>AI</th>
         </tr>`;
