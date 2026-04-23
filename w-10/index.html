@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        /* Centers everything on the page */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .outer-box {
+            background-color: #fff0e6;
+            padding: 40px;
+            border: 1px solid #d1b8a5;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            border-collapse: collapse;
+            background-color: #00bfff;
+            width: 450px;
+            border: 2px solid black;
+        }
+
+        th {
+            background-color: #ffffcc;
+            color: red;
+            font-size: 24px;
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        td {
+            border: 1px solid white;
+            padding: 8px;
+            color: black;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        textarea,
+        select {
+            width: 90%;
+            padding: 4px;
+        }
+
+        .btn-row {
+            text-align: center;
+            background-color: #00bfff;
+        }
+
+        button,
+        input[type="button"],
+        input[type="submit"] {
+            padding: 5px 15px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #eee;
+            border: 1px solid #888;
+        }
+
+        button:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="outer-box">
+        <form id="userForm">
+            <table>
+                <tr>
+                    <th colspan="2">User Form</th>
+                </tr>
+                <tr>
+                    <td>Enter Name</td>
+                    <td><input type="text" id="name" required></td>
+                </tr>
+                <tr>
+                    <td>Enter Password</td>
+                    <td><input type="password" id="pass" required></td>
+                </tr>
+                <tr>
+                    <td>Enter Address</td>
+                    <td><textarea id="address" rows="3"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Select Game</td>
+                    <td>
+                        <input type="checkbox" name="game"> Hockey<br>
+                        <input type="checkbox" name="game"> Football<br>
+                        <input type="checkbox" name="game"> Badminton<br>
+                        <input type="checkbox" name="game"> Cricket<br>
+                        <input type="checkbox" name="game"> Volleyball
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                        <input type="radio" name="gender"> Male
+                        <input type="radio" name="gender"> Female
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select ur age</td>
+                    <td>
+                        <select id="age">
+                            <option>Select</option>
+                            <option>18-25</option>
+                            <option>26-40</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="file" id="fileInput"></td>
+                </tr>
+                <tr class="btn-row">
+                    <td colspan="2">
+                        <button type="button" onclick="resetForm()">Click Me</button>
+                        <button type="reset">Reset</button>
+                        <button type="submit">Submit Form</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('userForm');
+
+        // Function to clear/reset the form
+        function resetForm() {
+            form.reset();
+            alert("Form has been reset!");
+        }
+
+        // Function to handle submission
+        form.onsubmit = function (e) {
+            e.preventDefault(); // Prevents the page from refreshing
+            alert("Form is submitted");
+            form.reset(); // Optional: clear form after submission
+        };
+    </script>
+
+</body>
+
+</html>

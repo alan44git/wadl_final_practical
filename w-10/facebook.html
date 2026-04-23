@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook - Log In or Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #e9ebee;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #3b5998;
+            color: white;
+            padding: 10px 15%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-section {
+            display: flex;
+            gap: 15px;
+        }
+
+        .login-field {
+            font-size: 12px;
+        }
+
+        .login-field label {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .login-field input {
+            padding: 3px;
+            border: 1px solid #1d2a5b;
+        }
+
+        .login-btn {
+            background-color: #4267b2;
+            color: white;
+            border: 1px solid #29487d;
+            font-weight: bold;
+            padding: 4px 8px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            padding: 40px 15%;
+            justify-content: space-between;
+        }
+
+        .left-col {
+            width: 550px;
+        }
+
+        .right-col {
+            width: 400px;
+        }
+
+        /* Left Column Text and Image */
+        .left-col h2 {
+            color: #0e385f;
+            font-size: 24px;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .connection-image {
+            width: 100%;
+            max-width: 537px;
+            display: block;
+        }
+
+        /* Right Column Form */
+        .right-col h1 {
+            font-size: 36px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .right-col p {
+            font-size: 19px;
+            margin-top: 0;
+            color: #333;
+        }
+
+        .reg-input {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0;
+            border: 1px solid #bdc7d8;
+            border-radius: 5px;
+            font-size: 18px;
+            box-sizing: border-box;
+        }
+
+        .half-width {
+            width: 49%;
+            display: inline-block;
+        }
+
+        .bday-label {
+            font-size: 18px;
+            margin-top: 15px;
+            color: #141823;
+        }
+
+        .gender-row {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .footer-text {
+            font-size: 11px;
+            color: #777;
+            width: 320px;
+            line-height: 1.3;
+        }
+
+        .signup-btn {
+            background: linear-gradient(#67ae55, #578843);
+            background-color: #69a74e;
+            color: white;
+            font-size: 19px;
+            font-weight: bold;
+            padding: 10px 50px;
+            border-radius: 5px;
+            border: 1px solid #3b6e22;
+            cursor: pointer;
+            margin-top: 15px;
+            box-shadow: inset 0 1px 1px #a4e388;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">facebook</div>
+        <div class="login-section">
+            <div class="login-field">
+                <label>Email or Phone</label>
+                <input type="text">
+            </div>
+            <div class="login-field">
+                <label>Password</label>
+                <input type="password">
+                <div style="color: #9cb4d8; cursor: pointer; margin-top: 2px;">Forgotten account?</div>
+            </div>
+            <div>
+                <button class="login-btn">Log In</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="left-col">
+            <h2>Facebook helps you connect and share with the people in your life.</h2>
+            <img src="face.jpeg" alt="Facebook World Connection Map" class="connection-image">
+        </div>
+
+        <div class="right-col">
+            <h1>Create an account</h1>
+            <p>It's free and always will be.</p>
+
+            <form id="fbForm">
+                <input type="text" placeholder="First name" class="reg-input half-width">
+                <input type="text" placeholder="Surname" class="reg-input half-width" style="float:right">
+                <input type="text" placeholder="Mobile number or email address" class="reg-input">
+                <input type="password" placeholder="New password" class="reg-input">
+
+                <div class="bday-label">Birthday</div>
+                <div style="display: flex; gap: 5px;">
+                    <select class="reg-input" style="width: 30%;">
+                        <option>Day</option>
+                    </select>
+                    <select class="reg-input" style="width: 30%;">
+                        <option>Month</option>
+                    </select>
+                    <select class="reg-input" style="width: 30%;">
+                        <option>Year</option>
+                    </select>
+                </div>
+
+                <div class="gender-row">
+                    <input type="radio" name="sex"> Female
+                    <input type="radio" name="sex"> Male
+                </div>
+
+                <p class="footer-text">
+                    By clicking Create an account, you agree to our Terms and that you have read our Data Policy,
+                    including our Cookie Use.
+                </p>
+                <button type="submit" class="signup-btn">Create an account</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('fbForm').onsubmit = function (e) {
+            e.preventDefault();
+            alert("Facebook Account Form Submitted!");
+        };
+    </script>
+
+</body>
+
+</html>

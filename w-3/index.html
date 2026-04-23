@@ -3,140 +3,171 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Offline Registration (LocalStorage)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Theme User Registration</title>
     <style>
+        /* 1. Page Background - Solid Grey */
         body {
-            font-family: sans-serif;
-            padding: 20px;
-            background-color: #f4f4f9;
+            background-color: #2e2e2e;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
         }
 
-        .box {
+        /* 2. Form Container - Black/Grey Theme */
+        .registration-card {
+            background-color: #1a1a1a;
+            /* Near black */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 100%;
             max-width: 400px;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #444;
         }
 
+        h2 {
+            text-align: center;
+            color: #bbb;
+            margin-top: 0;
+        }
+
+        /* 3. Form Inputs */
         input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            background-color: #333;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: white;
             box-sizing: border-box;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+            background-color: #3d3d3d;
         }
 
         button {
             width: 100%;
-            padding: 10px;
-            background: #28a745;
+            padding: 12px;
+            background-color: #444;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin-top: 10px;
         }
 
         button:hover {
-            background: #218838;
+            background-color: #555;
         }
 
-        .list-container {
+        /* 4. Data List Area */
+        .user-list {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .user-item {
+            background: #222;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 5px solid #555;
+        }
+
+        .user-item strong {
+            color: #007bff;
+        }
+
+        .user-item small {
+            color: #888;
+        }
+
+        .clear-btn {
+            background: transparent;
+            color: #888;
+            border: 1px solid #444;
+            font-size: 12px;
             margin-top: 20px;
-        }
-
-        .user-entry {
-            background: #eee;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            font-size: 14px;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="box">
-        <h3>User Registration</h3>
-        <form id="regForm">
-            <input type="text" id="username" placeholder="Name" required>
-            <input type="email" id="useremail" placeholder="Email" required>
-            <button type="submit">Save User</button>
+    <div class="registration-card">
+        <h2>Register</h2>
+        <form id="userForm">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <button type="submit">Push to Data Array</button>
         </form>
-
-        <div class="list-container">
-            <h4>Stored Users:</h4>
-            <div id="displayArea"></div>
-            <button id="clearBtn" style="background:#dc3545; margin-top:10px;">Clear All Data</button>
-        </div>
     </div>
 
+    <div class="user-list" id="displayArea"></div>
+
+    <button id="clearBtn" class="clear-btn">Clear Local Storage</button>
+
     <script>
-        const regForm = document.getElementById('regForm');
+        const userForm = document.getElementById('userForm');
         const displayArea = document.getElementById('displayArea');
         const clearBtn = document.getElementById('clearBtn');
 
-        // --- 1. INITIALIZE DATA ---
-        // Try to get data from LocalStorage; if empty, start with an empty array
-        let userDatabase = JSON.parse(localStorage.getItem('myAppUsers')) || [];
+        // Load existing data from LocalStorage or start empty
+        let apiDataArray = JSON.parse(localStorage.getItem('offlineDB')) || [];
 
-        // Render the list immediately on page load
-        renderList();
+        // Initial render
+        renderData();
 
-        // --- 2. THE "AJAX" SIMULATION ---
-        regForm.addEventListener('submit', (e) => {
+        userForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
+            // Create the user object
             const newUser = {
-                name: document.getElementById('username').value,
-                email: document.getElementById('useremail').value,
-                timestamp: new Date().toLocaleString()
+                id: Date.now(),
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value
             };
 
-            // Simulate the POST push to our "API" (LocalStorage)
-            saveToLocalStorage(newUser);
+            // Simulate "Pushing to API" by saving to LocalStorage
+            apiDataArray.push(newUser);
+            localStorage.setItem('offlineDB', JSON.stringify(apiDataArray));
 
-            regForm.reset();
+            // UI Updates
+            renderData();
+            userForm.reset();
         });
 
-        // --- 3. CORE FUNCTIONS ---
-
-        function saveToLocalStorage(user) {
-            // Push to the array
-            userDatabase.push(user);
-
-            // Save the updated array back to LocalStorage (must be a string)
-            localStorage.setItem('myAppUsers', JSON.stringify(userDatabase));
-
-            // Update the UI
-            renderList();
-        }
-
-        function renderList() {
+        function renderData() {
             displayArea.innerHTML = '';
 
-            if (userDatabase.length === 0) {
-                displayArea.innerHTML = '<p style="color:gray">No users registered yet.</p>';
-                return;
-            }
-
-            userDatabase.forEach(user => {
+            apiDataArray.forEach(user => {
                 const div = document.createElement('div');
-                div.className = 'user-entry';
-                div.innerHTML = `<strong>${user.name}</strong> (${user.email})<br>
-                             <small style="color:#666">${user.timestamp}</small>`;
+                div.className = 'user-item';
+                div.innerHTML = `
+                <strong>${user.name}</strong><br>
+                <small>${user.email}</small>
+            `;
                 displayArea.appendChild(div);
             });
         }
 
-        // Clear data helper
         clearBtn.onclick = () => {
-            if (confirm("Delete all users?")) {
-                localStorage.removeItem('myAppUsers');
-                userDatabase = [];
-                renderList();
-            }
+            localStorage.removeItem('offlineDB');
+            apiDataArray = [];
+            renderData();
         };
     </script>
 

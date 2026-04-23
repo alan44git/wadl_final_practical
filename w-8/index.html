@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wild & Wacky Vegetables</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+        .sidebar {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .vegetable-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-4">
+        <div class="alert alert-danger" role="alert">
+            Uh oh! Have you had your daily dose of veggies today?
+        </div>
+
+        <div class="row">
+            <nav class="col-md-3 sidebar">
+                <h3>Some Favorites</h3>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item active">Celery Root</li>
+                    <li class="list-group-item">Spaghetti Squash</li>
+                    <li class="list-group-item">Killer Mushrooms</li>
+                </ul>
+
+                <form class="mt-4">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Search Recipes">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Search Recipes</button>
+                </form>
+            </nav>
+
+            <main class="col-md-9 px-4">
+                <h1>Wild & Wacky Vegetables</h1>
+
+                <blockquote class="blockquote mt-3">
+                    <p>The beet is the most intense of vegetables. The radish, admittedly, is more feverish, but the
+                        fire of the radish is a cold fire...</p>
+                    <footer class="blockquote-footer">Tom Robbins</footer>
+                </blockquote>
+
+                <h3 class="mt-4">Some diseases</h3>
+                <table class="table table-bordered table-striped">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Veggie</th>
+                            <th>Disease</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Beets</td>
+                            <td>Beeturia</td>
+                        </tr>
+                        <tr>
+                            <td>Carrots</td>
+                            <td>Carotenemia</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Kale courgette salsify mustard broccoli seakale wakame potato fava bean tiger nut leek celery spinach
+                    avocado cabbage...</p>
+
+                <div class="row mt-4 text-center">
+                    <div class="col-sm-4">
+                        <img src="beets.jpg" class="img-thumbnail vegetable-img" alt="Beets">
+                        <p><strong>Beets</strong><br><small>Don't let it get your hands dirty.</small></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="carrots.jpg" class="img-thumbnail vegetable-img" alt="Carrots">
+                        <p><strong>Carrots</strong><br><small>Not sticks, eat mid-day.</small></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="asparagus.jpg" class="img-thumbnail vegetable-img" alt="Asparagus">
+                        <p><strong>Asparagus</strong><br><small>Spears, spears, spears.</small></p>
+                    </div>
+                </div>
+
+                <h3 class="mt-4">Really informative info</h3>
+                <p>Kale courgette salsify mustard broccoli seakale wakame potato fava bean tiger nut leek celery spinach
+                    avocado cabbage...</p>
+            </main>
+        </div>
+    </div>
+
+    <script src="bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
