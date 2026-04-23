@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Multi-Page Mobile App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+    <style>
+        /* Custom styling for the gallery grid */
+        .gallery-item {
+            text-align: center;
+            padding: 5px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div data-role="page" id="home">
+        <div data-role="panel" id="nav-panel" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li data-icon="delete"><a href="#" data-rel="close">Close Menu</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div data-role="header" data-theme="b">
+            <a href="#nav-panel" class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all">Menu</a>
+            <h1>Mobile Tech</h1>
+        </div>
+
+        <div role="main" class="ui-content">
+            <div style="text-align:center;">
+                <h2>Welcome to Our App</h2>
+                <p>This is a full-featured jQuery Mobile template running entirely on local files.</p>
+            </div>
+
+            <ul data-role="listview" data-inset="true" data-divider-theme="a">
+                <li data-role="list-divider">Quick Navigation</li>
+                <li><a href="#gallery">View Portfolio</a></li>
+                <li><a href="#contact">Send Message</a></li>
+            </ul>
+        </div>
+
+        <div data-role="footer" data-position="fixed" data-theme="b">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#home" class="ui-btn-active ui-state-persist" data-icon="home">Home</a></li>
+                    <li><a href="#gallery" data-icon="grid">Gallery</a></li>
+                    <li><a href="#contact" data-icon="mail">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="page" id="gallery">
+        <div data-role="header" data-theme="b">
+            <a href="#home" class="ui-btn ui-icon-back ui-btn-icon-notext">Back</a>
+            <h1>Gallery</h1>
+        </div>
+
+        <div role="main" class="ui-content">
+            <h3>Our Projects</h3>
+            <div class="ui-grid-a">
+                <div class="ui-block-a gallery-item">
+                    <img src="https://via.placeholder.com/150" alt="Work 1">
+                    <p>Project Alpha</p>
+                </div>
+                <div class="ui-block-b gallery-item">
+                    <img src="https://via.placeholder.com/150" alt="Work 2">
+                    <p>Project Beta</p>
+                </div>
+                <div class="ui-block-a gallery-item">
+                    <img src="https://via.placeholder.com/150" alt="Work 3">
+                    <p>Project Gamma</p>
+                </div>
+                <div class="ui-block-b gallery-item">
+                    <img src="https://via.placeholder.com/150" alt="Work 4">
+                    <p>Project Delta</p>
+                </div>
+            </div>
+        </div>
+
+        <div data-role="footer" data-position="fixed" data-theme="b">
+            <h4>Gallery © 2026</h4>
+        </div>
+    </div>
+
+    <div data-role="page" id="contact">
+        <div data-role="header" data-theme="b">
+            <a href="#home" class="ui-btn ui-icon-back ui-btn-icon-notext">Back</a>
+            <h1>Contact</h1>
+        </div>
+
+        <div role="main" class="ui-content">
+            <form id="contactForm">
+                <label for="name">Full Name:</label>
+                <input type="text" name="name" id="name" placeholder="John Doe" data-clear-btn="true">
+
+                <label for="email">Email Address:</label>
+                <input type="email" name="email" id="email" placeholder="email@example.com" data-clear-btn="true">
+
+                <label for="select-choice">Reason for Contact:</label>
+                <select name="select-choice" id="select-choice">
+                    <option value="support">Technical Support</option>
+                    <option value="sales">Sales Inquiry</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="message">Message:</label>
+                <textarea name="message" id="message"></textarea>
+
+                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b">Submit Form</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

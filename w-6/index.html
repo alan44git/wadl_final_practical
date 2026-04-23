@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Table Generator</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 5px;
+            width: 150px;
+        }
+
+        button {
+            padding: 5px 15px;
+            cursor: pointer;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+            float: left;
+            margin-right: 30px;
+        }
+
+        td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: center;
+            min-width: 40px;
+        }
+
+        .container {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        h3 {
+            clear: both;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Table Generator (W-6)</h2>
+    <div class="input-group">
+        <input type="text" id="input1" placeholder="e.g., 3#3#3">
+        <input type="text" id="input2" placeholder="e.g., 3#3#2">
+        <button onclick="generateTables()">Generate Tables</button>
+    </div>
+
+    <div id="tablesContainer" class="container"></div>
+
+    <script>
+        function parseInput(str) {
+            const parts = str.split('#').map(Number);
+            return { rows: parts[0], cols: parts[1], start: parts[2] };
+        }
+
+        function createTableData(rows, cols, start) {
+            let data = [];
+            for (let r = 0; r < rows; r++) {
+                data[r] = [];
+                for (let c = 0; c < cols; c++) {
+                    // Logic: Start printing vertically. 
+                    // Value = start * (current_row + 1) + (start * current_col * rows)
+                    // Simplified: (start) * ( (c * rows) + r + 1 )
+                    data[r][c] = start * ((c * rows) + r + 1);
+                }
+            }
+            return data;
+        }
+
+        function renderTable(data, colorMap = null) {
+            let html = '<table>';
+            data.forEach(row => {
+                html += '<tr>';
+                row.forEach(val => {
+                    let style = colorMap && colorMap[val] ? `style="background-color:${colorMap[val]}"` : '';
+                    html += `<td ${style}>${val}</td>`;
+                });
+                html += '</tr>';
+            });
+            html += '</table>';
+            return html;
+        }
+
+        function getRandomColor() {
+            return '#' + Math.floor(Math.random() * 16777215).toString(16);
+        }
+
+        function generateTables() {
+            const val1 = document.getElementById('input1').value;
+            const val2 = document.getElementById('input2').value;
+            const container = document.getElementById('tablesContainer');
+            container.innerHTML = '';
+
+            const t1 = parseInput(val1);
+            const t2 = parseInput(val2);
+
+            const data1 = createTableData(t1.rows, t1.cols, t1.start);
+            const data2 = createTableData(t2.rows, t2.cols, t2.start);
+
+            container.innerHTML += renderTable(data1);
+            container.innerHTML += renderTable(data2);
+
+            // Logic for Third Table
+            if (t1.rows === t2.rows && t1.cols === t2.cols) {
+                let data3 = [];
+                let counts = {};
+
+                // Calculate values for Table 3
+                for (let r = 0; r < t1.rows; r++) {
+                    data3[r] = [];
+                    for (let c = 0; c < t1.cols; c++) {
+                        let val;
+                        if (data1[r][c] === data2[r][c]) {
+                            val = data1[r][c];
+                        } else {
+                            val = data1[r][c] * data2[r][c];
+                        }
+                        data3[r][c] = val;
+                        counts[val] = (counts[val] || 0) + 1;
+                    }
+                }
+
+                // Generate colors for repeated values
+                let colorMap = {};
+                for (let key in counts) {
+                    if (counts[key] > 1) {
+                        colorMap[key] = getRandomColor();
+                    }
+                }
+
+                container.innerHTML += "<h3 style='clear:both'>Third Table</h3>";
+                container.innerHTML += renderTable(data3, colorMap);
+            }
+        }
+    </script>
+</body>
+
+</html>
